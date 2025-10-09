@@ -9,22 +9,50 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 VENV_NAME="beacometer"
+PYTHON_VERSION="3.14.0"
 
 echo -e "${GREEN}=== Project Environment Setup ===${NC}\n"
 
-if ! command -v python3 &> /dev/null; then
-    echo -e "${RED}Error: Python 3 not found. Please install Python 3.${NC}"
-    exit 1
-fi
-
-PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
-echo -e "Python found: ${GREEN}$PYTHON_VERSION${NC}"
-
-if ! python3 -m venv --help &> /dev/null; then
-    echo -e "${YELLOW}Installing python3-venv...${NC}"
+if ! command -v pyenv &> /dev/null; then
+    echo -e "${YELLOW}pyenv not found. Installing pyenv...${NC}"
+    
     sudo apt update
-    sudo apt install -y python3-venv
+    sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+        libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+        libffi-dev liblzma-dev
+    
+    curl https://pyenv.run | bash
+    
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    
+    echo -e "${GREEN}pyenv installed successfully!${NC}"
+    echo -e "${YELLOW}Note: Add the following to your ~/.bashrc or ~/.zshrc:${NC}"
+    echo -e 'export PYENV_ROOT="$HOME/.pyenv"'
+    echo -e 'export PATH="$PYENV_ROOT/bin:$PATH"'
+    echo -e 'eval "$(pyenv init -)"'
+    echo ""
+else
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    echo -e "${GREEN}pyenv already installed${NC}"
 fi
+
+if ! pyenv versions | grep -q "$PYTHON_VERSION"; then
+    echo -e "\n${YELLOW}Installing Python $PYTHON_VERSION...${NC}"
+    pyenv install "$PYTHON_VERSION"
+else
+    echo -e "${GREEN}Python $PYTHON_VERSION already installed${NC}"
+fi
+
+echo -e "\n${GREEN}Setting Python $PYTHON_VERSION for this project...${NC}"
+pyenv local "$PYTHON_VERSION"
+
+PYTHON_PATH=$(pyenv which python)
+echo -e "Using Python: ${GREEN}$PYTHON_PATH${NC}"
 
 if [ -d "$VENV_NAME" ]; then
     echo -e "${YELLOW}Existing virtual environment found. Removing...${NC}"
@@ -32,7 +60,7 @@ if [ -d "$VENV_NAME" ]; then
 fi
 
 echo -e "\n${GREEN}Creating virtual environment...${NC}"
-python3 -m venv "$VENV_NAME"
+python -m venv "$VENV_NAME"
 
 echo -e "${GREEN}Activating virtual environment...${NC}"
 source "$VENV_NAME/bin/activate"
@@ -48,6 +76,7 @@ else
 fi
 
 echo -e "\n${GREEN}=== Setup completed successfully! ===${NC}"
+echo -e "\nPython version: ${GREEN}$(python --version)${NC}"
 echo -e "\nTo activate the virtual environment in the future, run:"
 echo -e "${YELLOW}source $VENV_NAME/bin/activate${NC}"
 echo -e "\nTo deactivate the virtual environment:"
