@@ -8,6 +8,8 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+VENV_NAME="beacometer"
+
 echo -e "${GREEN}=== Project Environment Setup ===${NC}\n"
 
 if ! command -v python3 &> /dev/null; then
@@ -24,18 +26,16 @@ if ! python3 -m venv --help &> /dev/null; then
     sudo apt install -y python3-venv
 fi
 
-VENV_DIR="venv"
-
-if [ -d "$VENV_DIR" ]; then
+if [ -d "$VENV_NAME" ]; then
     echo -e "${YELLOW}Existing virtual environment found. Removing...${NC}"
-    rm -rf "$VENV_DIR"
+    rm -rf "$VENV_NAME"
 fi
 
 echo -e "\n${GREEN}Creating virtual environment...${NC}"
-python3 -m venv "$VENV_DIR"
+python3 -m venv "$VENV_NAME"
 
 echo -e "${GREEN}Activating virtual environment...${NC}"
-source "$VENV_DIR/bin/activate"
+source "$VENV_NAME/bin/activate"
 
 echo -e "\n${GREEN}Upgrading pip...${NC}"
 pip install --upgrade pip
@@ -49,6 +49,6 @@ fi
 
 echo -e "\n${GREEN}=== Setup completed successfully! ===${NC}"
 echo -e "\nTo activate the virtual environment in the future, run:"
-echo -e "${YELLOW}source venv/bin/activate${NC}"
+echo -e "${YELLOW}source $VENV_NAME/bin/activate${NC}"
 echo -e "\nTo deactivate the virtual environment:"
 echo -e "${YELLOW}deactivate${NC}"
