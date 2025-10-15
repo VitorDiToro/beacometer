@@ -16,7 +16,7 @@ A Bluetooth Low Energy (BLE) beacon scanner built with Python using a very simpl
 
 ```bash
 git clone <repository-url>
-cd BLE
+cd beacometer
 ```
 
 ### 2. Setup environment
@@ -47,12 +47,12 @@ Create and activate a virtual environment manually:
 
 ```bash
 # Windows
-python -m venv venv
-venv\Scripts\activate
+python -m venv ble
+ble\Scripts\activate
 
 # macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv ble
+ble venv/bin/activate
 ```
 
 Then install dependencies:
