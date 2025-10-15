@@ -8,12 +8,18 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-VENV_NAME="beacometer"
+VENV_NAME="ble"
 PYTHON_VERSION="3.14.0"
 
 echo -e "${GREEN}=== Project Environment Setup ===${NC}\n"
 
-if ! command -v pyenv &> /dev/null; then
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if [ -d "$PYENV_ROOT" ]; then
+    echo -e "${GREEN}pyenv already installed${NC}"
+    eval "$(pyenv init -)"
+else
     echo -e "${YELLOW}pyenv not found. Installing pyenv...${NC}"
     
     sudo apt update
@@ -24,8 +30,6 @@ if ! command -v pyenv &> /dev/null; then
     
     curl https://pyenv.run | bash
     
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     
     echo -e "${GREEN}pyenv installed successfully!${NC}"
@@ -34,11 +38,6 @@ if ! command -v pyenv &> /dev/null; then
     echo -e 'export PATH="$PYENV_ROOT/bin:$PATH"'
     echo -e 'eval "$(pyenv init -)"'
     echo ""
-else
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-    echo -e "${GREEN}pyenv already installed${NC}"
 fi
 
 if ! pyenv versions | grep -q "$PYTHON_VERSION"; then
