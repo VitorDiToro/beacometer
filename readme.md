@@ -1,6 +1,6 @@
 # BLE Beacon Scanner
 
-A Bluetooth Low Energy (BLE) beacon scanner built with Python using clean architecture and SOLID principles.
+A Bluetooth Low Energy (BLE) beacon scanner built with Python using a very simple approach with Bleak package.
 
 ## 📋 Prerequisites
 
@@ -104,23 +104,23 @@ Press `Ctrl+C` to stop scanning. If using a filter, filtering statistics will be
 
 ```
 BLE
-├── main.py                    # Application entry point with CLI argument parsing
-├── requirements.txt           # Project dependencies (bleak, etc.)
-├── filter.txt                 # Example file with allowed MAC addresses
-├── setup.sh                   # Automated setup script for Debian-based Linux
-├── scanner                    # Main BLE scanner package
-│   ├── application           # Application layer - business logic and use cases
-│   │   ├── handlers.py       # Handler implementations for processing detected beacons
-│   │   ├── __init__.py       # Exports public classes from application module
-│   │   ├── interfaces.py    # Interfaces (contracts) for handlers and scanners
-│   │   ├── parser.py        # Parser to convert raw BLE data into Beacon objects
-│   │   ├── scanner.py       # Scanner implementation using Bleak library
-│   │   ├── filter.py        # MAC address filter management
+├── main.py                      # Application entry point with CLI argument parsing
+├── requirements.txt             # Project dependencies (bleak, etc.)
+├── filter.txt                   # Example file with allowed MAC addresses
+├── setup.sh                     # Automated setup script for Debian-based Linux
+├── scanner                      # Main BLE scanner package
+│   ├── application              # Application layer - business logic and use cases
+│   │   ├── handlers.py          # Handler implementations for processing detected beacons
+│   │   ├── __init__.py          # Exports public classes from application module
+│   │   ├── interfaces.py        # Interfaces (contracts) for handlers and scanners
+│   │   ├── parser.py            # Parser to convert raw BLE data into Beacon objects
+│   │   ├── scanner.py           # Scanner implementation using Bleak library
+│   │   ├── filter.py            # MAC address filter management
 │   │   └── filtered_handler.py  # Decorator that adds filtering to any handler
-│   └── domain               # Domain layer - entities and business rules
-│       ├── beacon.py        # Beacon class - represents a detected BLE beacon
-│       └── __init__.py      # Exports domain entities
-└── README.md                # This file
+│   └── domain                   # Domain layer - entities and business rules
+│       ├── beacon.py            # Beacon class - represents a detected BLE beacon
+│       └── __init__.py          # Exports domain entities
+└── README.md                    # This file
 ```
 
 ## 📝 Filter file format
