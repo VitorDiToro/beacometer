@@ -1,6 +1,6 @@
 # BLE Beacon Scanner
 
-A Bluetooth Low Energy (BLE) beacon scanner built with Python using clean architecture and SOLID principles.
+A Bluetooth Low Energy (BLE) beacon scanner built with Python using a very simple approach with Bleak package.
 
 ## 📋 Prerequisites
 
