@@ -1,0 +1,13 @@
+# Exemplo de arquivo de filtro para beacons
+# Adicione um endereço MAC por linha
+# Linhas vazias e começando com # são ignoradas
+
+82:00:00:00:02:BA
+82:00:00:00:02:BC
+82:00:00:00:02:88
+82:00:00:00:02:6b
+
+# Você também pode adicionar endereços em minúsculas
+# (serão normalizados automaticamente)
+aa:bb:cc:dd:ee:ff
+11:22:33:44:55:66

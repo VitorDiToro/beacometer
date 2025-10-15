@@ -6,11 +6,13 @@ from bleak.backends.scanner import AdvertisementData
 from scanner.application.interfaces import IBeaconScanner, IBeaconHandler
 from scanner.application.parser import BeaconParser
 
+
 class BleakBeaconScanner(IBeaconScanner):
     """
     An implementation of IBeaconScanner using the Bleak library.
     It encapsulates the logic for scanning and delegation.
     """
+
     def __init__(self, parser: BeaconParser):
         self._parser = parser
         # Using a set to keep track of discovered devices by address
@@ -23,8 +25,7 @@ class BleakBeaconScanner(IBeaconScanner):
         Starts the Bleak scanner and uses a callback to process
         advertisements.
         """
-        print("Starting BLE scan... Press Ctrl+C to stop.")
-        
+
         # The detection callback is a closure, capturing 'handler' and 'self'
         def detection_callback(device: BLEDevice, ad_data: AdvertisementData):
             beacon = self._parser.parse(device, ad_data)
